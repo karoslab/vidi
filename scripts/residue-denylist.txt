@@ -1,0 +1,13 @@
+karthikhsg
+/Users/karthik
+com\.karoslabs
+dev\.karoslabs
+KarWiki
+clicky-proxy
+thorfinn
+hernudge
+watchling
+KARTHIK-ONLY
+Deploy Guard
+nightloop
+~/karoslabs

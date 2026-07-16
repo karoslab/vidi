@@ -13,6 +13,12 @@ jobs:
         working-directory: worker
     steps:
       - uses: actions/checkout@v4
+      - name: Residue check
+        working-directory: ${{ github.workspace }}
+        run: |
+          if grep -rIEnf scripts/residue-denylist.txt . --exclude-dir=.git --exclude=residue-denylist.txt; then
+            echo "Personal/internal residue found (see matches above)"; exit 1
+          fi
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
