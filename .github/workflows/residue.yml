@@ -1,0 +1,31 @@
+name: residue
+on:
+  push:
+  pull_request:
+jobs:
+  residue:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Residue check (fail-closed)
+        env:
+          RESIDUE_DENYLIST: ${{ secrets.RESIDUE_DENYLIST }}
+        run: |
+          # Fail-closed: no denylist available (e.g. fork PRs) = red build, never a skip.
+          if [ -z "$RESIDUE_DENYLIST" ]; then echo "residue denylist unavailable - failing closed"; exit 1; fi
+          printf '%s\n' "$RESIDUE_DENYLIST" > "$RUNNER_TEMP/denylist.txt"
+          fail=0
+          # Working tree: report matching filenames only, never the matched text.
+          if grep -rIlEf "$RUNNER_TEMP/denylist.txt" . --exclude-dir=.git; then
+            echo "residue found in the files listed above"; fail=1
+          fi
+          # Full reachable history (diffs, messages, author/committer lines): commit ids only.
+          for c in $(git log --all --format=%H); do
+            if git show "$c" --format='%H %an %ae %cn %ce%n%B' | grep -qEf "$RUNNER_TEMP/denylist.txt"; then
+              echo "residue in commit $c"; fail=1
+            fi
+          done
+          exit $fail
