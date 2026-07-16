@@ -24,7 +24,7 @@ struct SarvamTranscriptionProviderTests {
         let responseJSON = """
         {
           "request_id": "req_abc123",
-          "transcript": "vidi open terminal",
+          "transcript": "vidi open my console",
           "language_code": "en-IN",
           "language_probability": 0.97
         }
@@ -35,7 +35,7 @@ struct SarvamTranscriptionProviderTests {
             from: responseJSON
         )
 
-        #expect(decoded.transcript == "vidi open terminal")
+        #expect(decoded.transcript == "vidi open my console")
     }
 
     @Test func parsesTranscriptWhenOnlyTranscriptFieldPresent() throws {

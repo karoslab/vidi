@@ -134,10 +134,10 @@ struct SpeechRecognitionLocaleTests {
     }
 
     @Test func parsesOneTermPerLineTrimmingWhitespace() {
-        let fileContents = "Tailscale\n  AirPods  \nNotes\n"
+        let fileContents = "Tailscale\n  AirPods  \nMyWiki\n"
         #expect(
             SpeechRecognitionLocale.parseKeytermsFile(contents: fileContents)
-                == ["Tailscale", "AirPods", "Notes"]
+                == ["Tailscale", "AirPods", "MyWiki"]
         )
     }
 
@@ -147,27 +147,27 @@ struct SpeechRecognitionLocaleTests {
         Tailscale
 
         # another comment
-        Notes
+        MyWiki
         """
         #expect(
             SpeechRecognitionLocale.parseKeytermsFile(contents: fileContents)
-                == ["Tailscale", "Notes"]
+                == ["Tailscale", "MyWiki"]
         )
     }
 
     @Test func stripsInlineTrailingComments() {
-        let fileContents = "Tailscale # the VPN\nNotes#brain"
+        let fileContents = "Tailscale # the VPN\nMyWiki#brain"
         #expect(
             SpeechRecognitionLocale.parseKeytermsFile(contents: fileContents)
-                == ["Tailscale", "Notes"]
+                == ["Tailscale", "MyWiki"]
         )
     }
 
     @Test func deduplicatesCaseInsensitivelyPreservingFirstSpelling() {
-        let fileContents = "Tailscale\ntailscale\nTAILSCALE\nNotes"
+        let fileContents = "Tailscale\ntailscale\nTAILSCALE\nMyWiki"
         #expect(
             SpeechRecognitionLocale.parseKeytermsFile(contents: fileContents)
-                == ["Tailscale", "Notes"]
+                == ["Tailscale", "MyWiki"]
         )
     }
 }

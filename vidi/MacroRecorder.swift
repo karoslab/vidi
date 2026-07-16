@@ -7,7 +7,7 @@ import Foundation
 /// through the accessibility tree into a SEMANTIC step (click the element
 /// titled "Send") rather than raw pixels, so replay survives window moves and
 /// layout changes. Named routines replay on command at ZERO LLM cost — the
-/// Macro recording capability (local only).
+/// "categorically not a HeyClicky clone" capability.
 ///
 /// Recording uses the same listen-only tap approach as the push-to-talk
 /// monitor (permission already handled). Resolution + persistence run on the

@@ -8,7 +8,7 @@
 //    1. Persist the in-app conversation history to disk so an app restart
 //       no longer wipes it (it was RAM-only).
 //    2. Archive every exchange to vidi-chat's POST /api/history, which lands
-//       it on the persistent "vision" thread — from there the memory-ingest
+//       it on the persistent "vision" thread — from there the brain-ingest
 //       job ships it to long-term memory for free.
 //    3. Fetch GET /api/context/vision before a vision turn: the last few
 //       voice+vision turns across BOTH brains plus a digest of the user
@@ -64,7 +64,7 @@ enum VisionHistoryStore {
         try? data.write(to: fileURL, options: .atomic)
     }
 
-    // MARK: - Backend archive (long-term memory via memory-ingest)
+    // MARK: - Backend archive (long-term memory via brain-ingest)
 
     /// Fire-and-forget: posts one exchange to the vidi-chat archive thread.
     /// Backend down → silently dropped; the exchange still lives on disk here.
@@ -75,7 +75,7 @@ enum VisionHistoryStore {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         // /api/history is token-gated (requireWriteAuth) since vidi-chat's P8
         // security wave. Attach vidi-chat's control token so this vision exchange
-        // still reaches the archive thread (→ long-term memory via memory-ingest);
+        // still reaches the archive thread (→ long-term memory via brain-ingest);
         // without it the POST 401s and long-term vision memory silently stops.
         if let vidiChatControlToken = VidiConfig.readVidiChatControlToken() {
             request.setValue(vidiChatControlToken, forHTTPHeaderField: "x-vidi-control-token")

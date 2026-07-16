@@ -1,7 +1,7 @@
 import Foundation
 
 enum VidiConfig {
-    // Cloudflare Worker proxy that holds all API keys. Set your Worker URL below.
+    // Cloudflare Worker proxy that holds all API keys. Deployed 2026-07-01.
     static let workerBaseURL = "https://vidi-proxy.REPLACE-SUBDOMAIN.workers.dev"
     static let proxyKeyHeaderName = "x-vidi-key"
     // A2 per-install secret: resolved from the Keychain first (a distributed
@@ -91,15 +91,14 @@ enum VidiConfig {
     // /api/voice-command so a spoken "vidi, confirm" (with the delivered nonce)
     // can approve a parked action, while a tokenless/blind local POST cannot.
     //
-    // Default lives under Application Support; override with
-    // `defaults write <bundle-id> vidiChatControlTokenPath <absolute path>`.
+    // Path defaults to the owner's install; override for a different layout with
+    // `defaults write com.example.vidi vidiChatControlTokenPath <absolute path>`.
     static var vidiChatControlTokenPath: String {
         if let override = UserDefaults.standard.string(forKey: "vidiChatControlTokenPath"),
            !override.trimmingCharacters(in: .whitespaces).isEmpty {
             return override
         }
-        let support = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
-        return support.appendingPathComponent("Vidi/control-token", isDirectory: false).path
+        return NSHomeDirectory() + "/Library/Application Support/vidi-chat/control-token"
     }
 
     // Read the vidi-chat control token fresh from disk (it's a tiny 0600 file;

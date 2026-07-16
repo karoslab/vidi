@@ -45,7 +45,7 @@ struct WakeWordVariantMatchingTests {
     // MARK: - Anywhere-in-transcript (continuous recognizer) behavior is preserved
 
     @Test func wakeWordLandingMidUtteranceStillRoutes() {
-        #expect(AmbientWakeListener.detectWake(in: "um so vidi open terminal") == "open terminal")
+        #expect(AmbientWakeListener.detectWake(in: "um so vidi open my console") == "open my console")
         #expect(AmbientWakeListener.detectWake(in: "okay v d open deploy") == "open deploy")
     }
 

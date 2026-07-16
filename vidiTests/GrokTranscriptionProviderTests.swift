@@ -21,7 +21,7 @@ struct GrokTranscriptionProviderTests {
         // "words": [...] }. The app decodes only `text` and ignores the rest.
         let responseJSON = """
         {
-          "text": "vidi open terminal",
+          "text": "vidi open my console",
           "language": "English",
           "duration": 1.84,
           "words": [
@@ -35,7 +35,7 @@ struct GrokTranscriptionProviderTests {
             from: responseJSON
         )
 
-        #expect(decoded.text == "vidi open terminal")
+        #expect(decoded.text == "vidi open my console")
     }
 
     @Test func parsesTextWhenOnlyTextFieldPresent() throws {
