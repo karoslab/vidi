@@ -1,0 +1,26 @@
+# Copy to worker/.dev.vars for local `wrangler dev` (gitignored).
+# For production, set each one with: npx wrangler secret put <NAME>
+
+# OpenAI API key for /chat when CHAT_PROVIDER is "openai" (the default) — required
+# (ANTHROPIC_API_KEY is no longer used — /chat is OpenAI-compatible now.)
+OPENAI_API_KEY=sk-your-openai-key-here
+
+# x.ai API key for /tts when TTS_PROVIDER is "grok" (the default) and for
+# /chat when CHAT_PROVIDER is "grok" — required
+XAI_API_KEY=xai-your-key-here
+
+# Shared secret the Vidi app must send as the `x-vidi-key` header — required.
+# The owner's live app sends this; it stays unmetered.
+VIDI_PROXY_KEY=generate-a-long-random-string-here
+
+# Owner-only key for the /admin/keys keyset endpoints (`x-vidi-admin-key`
+# header) — OPTIONAL. When unset, admin auth falls back to VIDI_PROXY_KEY, so
+# no new secret is required to start issuing per-install keys. Set a distinct
+# value to separate the admin credential from the app's proxy key.
+VIDI_ADMIN_KEY=optional-separate-admin-key
+
+# ElevenLabs API key for /tts when TTS_PROVIDER is "elevenlabs" — optional
+ELEVENLABS_API_KEY=your-elevenlabs-key-here
+
+# AssemblyAI API key for /transcribe-token (streaming transcription) — optional
+ASSEMBLYAI_API_KEY=your-assemblyai-key-here

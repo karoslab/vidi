@@ -1,0 +1,25 @@
+name = "vidi-proxy"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+[vars]
+# Chat brain: "openai" (default) or "grok". Both are OpenAI-compatible
+# chat-completions upstreams; /chat forwards the body unchanged.
+CHAT_PROVIDER = "openai"
+CHAT_MODEL_ALLOWLIST = "gpt-5.2,gpt-4.1-mini,grok-4.1,grok-4.1-fast"
+TTS_PROVIDER = "grok"
+GROK_VOICE_ID = "ara"
+# Set this to your own ElevenLabs voice id if you switch TTS_PROVIDER to
+# "elevenlabs" (the upstream author's voice id was removed on purpose).
+ELEVENLABS_VOICE_ID = ""
+
+# A2 per-install keyset (rows 24/25). Stores per-install key records + usage
+# counters. Namespace created 2026-07-10 (`npx wrangler kv namespace create
+# VIDI_KEYSET`). The owner shared key never touches this binding; per-install
+# keys are metered against it. Each record may also carry per-voice entitlements
+# (allowedVoiceIds / defaultVoiceId) so a keyset key can select premium voices
+# (Grok ara/eve/rex/sal/leo are globally allowed; ElevenLabs clones must be
+# entitled per key) — see worker/src/voices.ts.
+[[kv_namespaces]]
+binding = "VIDI_KEYSET"
+id = "<your-kv-namespace-id>"

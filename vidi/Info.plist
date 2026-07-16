@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>LSUIElement</key>
+	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<!-- Voice commands POST to the local vidi-chat agent over http://localhost -->
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
+	<key>VoiceTranscriptionProvider</key>
+	<string>apple</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Vidi needs the microphone to hear you say “vidi, …”</string>
+	<key>NSScreenCaptureUsageDescription</key>
+	<string>Vidi needs screen recording to see your screen and help with what’s on it.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Vidi needs speech recognition to turn what you say into words.</string>
+</dict>
+</plist>

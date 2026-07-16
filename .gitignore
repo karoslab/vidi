@@ -1,0 +1,30 @@
+worker/node_modules/
+worker/.dev.vars
+.DS_Store
+*.xcuserstate
+build/
+releases/
+.claude/
+coding-plans/
+.proxy-secret
+.proxy-secret*
+
+# Secrets / env
+.env
+.env.*
+*.pem
+
+# Local-only secrets (proxyKey / handsControlToken) — never commit.
+# The committed template is VidiSecrets.local.example.swift at the repo root.
+vidi/VidiSecrets.local.swift
+vidi/*.local.swift
+*Secrets.local.*
+
+# session evidence notes (may contain personal context) — never commit
+evidence/
+
+# Backup files / stray dumps — never commit
+*.bak
+
+# Xcode per-user state
+xcuserdata/
